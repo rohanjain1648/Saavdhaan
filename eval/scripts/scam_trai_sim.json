@@ -1,0 +1,22 @@
+{
+  "id": "scam_trai_sim",
+  "label": "scam",
+  "title": "Fake TRAI officer: all your SIMs will be cut in two hours",
+  "language": "hi-IN",
+  "voices": {"caller": "Devansh", "receiver": "Lakshmi"},
+  "summary": "Caller claims to be from TRAI, says a second SIM on her Aadhaar sent illegal messages, threatens to cut all her numbers in two hours, 'connects' her to a cyber cell, tells her to stay alone and not tell her husband, and asks her to keep bank details ready.",
+  "turns": [
+    {"speaker": "caller", "text": "नमस्कार, यह कॉल ट्राई, यानी टेलीकॉम रेगुलेटरी अथॉरिटी की तरफ़ से है। मैं अधिकारी विनोद चौहान बोल रहा हूँ।"},
+    {"speaker": "receiver", "text": "जी, नमस्ते। क्या बात है?"},
+    {"speaker": "caller", "text": "मैडम, आपके आधार कार्ड पर एक दूसरा सिम कार्ड जारी हुआ है, जिससे गैरकानूनी विज्ञापन और धमकी भरे मैसेज भेजे गए हैं।"},
+    {"speaker": "receiver", "text": "मेरे नाम पर? मेरे पास तो बरसों से एक ही नंबर है।"},
+    {"speaker": "caller", "text": "इस सिम पर बाईस शिकायतें दर्ज हैं। दो घंटे में आपके नाम के सारे मोबाइल नंबर बंद कर दिए जाएँगे।"},
+    {"speaker": "receiver", "text": "दो घंटे में? पर मेरे बैंक के सारे मैसेज इसी नंबर पर आते हैं... अब मैं क्या करूँ?"},
+    {"speaker": "caller", "text": "अगर आप निर्दोष हैं, तो आपको दिल्ली पुलिस साइबर सेल से क्लियरेंस लेना होगा। मैं आपकी कॉल अभी उनसे जोड़ रहा हूँ, फ़ोन मत रखिए।"},
+    {"speaker": "receiver", "text": "पुलिस? हे भगवान... मुझे बहुत डर लग रहा है।"},
+    {"speaker": "caller", "text": "डरिए मत, बस पूरा सहयोग कीजिए। पुलिस वाले आपका बयान वीडियो कॉल पर लेंगे। तब तक कमरे में अकेली रहिए और घर में किसी को कुछ मत बताइए।"},
+    {"speaker": "receiver", "text": "मेरे पति अभी बाज़ार गए हैं... उनको भी नहीं बताऊँ?"},
+    {"speaker": "caller", "text": "किसी को नहीं। और अपने सारे बैंक अकाउंट की डिटेल तैयार रखिए, जाँच के लिए आपका पैसा वेरिफ़ाई किया जाएगा।"},
+    {"speaker": "receiver", "text": "ठीक है... जैसा आप कहें।"}
+  ]
+}

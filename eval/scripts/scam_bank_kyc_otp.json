@@ -1,0 +1,24 @@
+{
+  "id": "scam_bank_kyc_otp",
+  "label": "scam",
+  "title": "Fake bank KYC call that ends with an OTP request",
+  "language": "hi-IN",
+  "voices": {"caller": "Shivani", "receiver": "Yashraj"},
+  "summary": "Caller poses as the bank's KYC department, says his pension account will be blocked tonight, asks for PAN and card digits, threatens a freeze, then asks him to read out the OTP and not read the warning text in the SMS.",
+  "turns": [
+    {"speaker": "caller", "text": "हेलो सर, मैं सहयोग बैंक के केवाईसी डिपार्टमेंट से सिमरन बोल रही हूँ। क्या मेरी बात रमेश गुप्ता जी से हो रही है?"},
+    {"speaker": "receiver", "text": "हाँ जी, बोलिए। क्या बात है?"},
+    {"speaker": "caller", "text": "सर, आपका केवाईसी अपडेट नहीं हुआ है, इसलिए आज रात बारह बजे आपका सेविंग्स अकाउंट ब्लॉक हो जाएगा।"},
+    {"speaker": "receiver", "text": "अरे, पर मैंने तो पिछले साल ही ब्रांच जाकर केवाईसी करवाया था।"},
+    {"speaker": "caller", "text": "सर, नए नियम के हिसाब से पैन कार्ड दोबारा लिंक करना ज़रूरी है। चिंता मत कीजिए, यह फ़ोन पर ही दो मिनट में हो जाएगा।"},
+    {"speaker": "receiver", "text": "अच्छा... तो मुझे ब्रांच नहीं आना पड़ेगा?"},
+    {"speaker": "caller", "text": "नहीं सर। बस अपना पैन नंबर और डेबिट कार्ड के आखिरी चार अंक बताइए, ताकि मैं आपका अकाउंट वेरिफ़ाई कर सकूँ।"},
+    {"speaker": "receiver", "text": "हम्म... मेरा बेटा कहता है कि फ़ोन पर ये सब नहीं बताना चाहिए।"},
+    {"speaker": "caller", "text": "सर, मैं बैंक से ही बोल रही हूँ, आपकी सारी डिटेल मेरी स्क्रीन पर है। अगर अभी वेरिफ़िकेशन नहीं हुआ, तो अकाउंट का सारा पैसा फ़्रीज़ हो जाएगा।"},
+    {"speaker": "receiver", "text": "नहीं नहीं, फ़्रीज़ मत कीजिए। मेरी पेंशन उसी में आती है।"},
+    {"speaker": "caller", "text": "तो सर, अभी आपके मोबाइल पर एक ओटीपी आया होगा। वो छह अंकों का कोड मुझे पढ़कर सुनाइए।"},
+    {"speaker": "receiver", "text": "रुकिए... चश्मा लगाता हूँ... हाँ, एक मैसेज आया है।"},
+    {"speaker": "caller", "text": "जल्दी बताइए सर, यह ओटीपी सिर्फ़ तीन मिनट के लिए वैलिड है। मैसेज में बाकी जो लिखा है वो मत पढ़िए, बस नंबर बताइए।"},
+    {"speaker": "receiver", "text": "ठीक है... पहला नंबर है..."}
+  ]
+}

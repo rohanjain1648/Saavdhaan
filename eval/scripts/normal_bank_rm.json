@@ -1,0 +1,22 @@
+{
+  "id": "normal_bank_rm",
+  "label": "normal",
+  "title": "Real relationship manager about an FD and KYC renewal",
+  "language": "hi-IN",
+  "voices": {"caller": "Shivani", "receiver": "Prakash"},
+  "summary": "A bank relationship manager calls about a maturing fixed deposit, mentions a KYC update due next month, asks him to bring PAN and Aadhaar copies to the branch to verify, and reminds him the bank never asks for OTP or PIN on the phone. Shares 'account', 'KYC', 'verify', 'transfer', 'OTP' with the scam calls.",
+  "turns": [
+    {"speaker": "caller", "text": "नमस्ते सर, मैं सहयोग बैंक की करोल बाग ब्रांच से आपकी रिलेशनशिप मैनेजर अदिति बोल रही हूँ। क्या अभी दो मिनट बात हो सकती है?"},
+    {"speaker": "receiver", "text": "हाँ अदिति जी, बोलिए।"},
+    {"speaker": "caller", "text": "सर, आपकी फ़िक्स्ड डिपॉज़िट अगले हफ़्ते मैच्योर हो रही है। आप उसे रिन्यू करना चाहेंगे, या पैसा सेविंग्स अकाउंट में ट्रांसफ़र कर दें?"},
+    {"speaker": "receiver", "text": "अभी तय नहीं किया है। आजकल ब्याज दर क्या चल रही है?"},
+    {"speaker": "caller", "text": "एक साल के लिए लगभग सात प्रतिशत है। सीनियर सिटिज़न के लिए थोड़ा ज़्यादा मिलता है।"},
+    {"speaker": "receiver", "text": "ठीक है। और किसी ने कहा था कि केवाईसी भी अपडेट करना है?"},
+    {"speaker": "caller", "text": "हाँ सर, आपका केवाईसी अगले महीने ड्यू है। जब आप ब्रांच आएँ, तो पैन कार्ड और आधार की कॉपी साथ ले आइए, हम वहीं वेरिफ़ाई कर देंगे।"},
+    {"speaker": "receiver", "text": "फ़ोन पर नहीं हो सकता?"},
+    {"speaker": "caller", "text": "नहीं सर। और याद रखिए, बैंक कभी फ़ोन पर ओटीपी या पिन नहीं माँगता। अगर कोई माँगे, तो कॉल काट दीजिए।"},
+    {"speaker": "receiver", "text": "अच्छा, यह अच्छी बात बताई। मैं शनिवार सुबह ब्रांच आ जाऊँगा।"},
+    {"speaker": "caller", "text": "ठीक है सर, मैं आपके लिए फ़ॉर्म तैयार रखूँगी। कोई जल्दी नहीं है, आराम से आइए।"},
+    {"speaker": "receiver", "text": "धन्यवाद अदिति जी।"}
+  ]
+}

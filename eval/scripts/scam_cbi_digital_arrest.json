@@ -1,0 +1,24 @@
+{
+  "id": "scam_cbi_digital_arrest",
+  "label": "scam",
+  "title": "Fake CBI officer puts a retired teacher under 'digital arrest'",
+  "language": "hi-IN",
+  "voices": {"caller": "Harshad", "receiver": "Vasudha"},
+  "summary": "Caller claims to be a CBI inspector, says her Aadhaar is linked to money laundering, declares a 'digital arrest' on video call, forbids her to tell her son, and pushes an RTGS of her FD into an 'RBI verification account'.",
+  "turns": [
+    {"speaker": "caller", "text": "हेलो, क्या मेरी बात सुशीला अरोड़ा जी से हो रही है?"},
+    {"speaker": "receiver", "text": "जी हाँ, मैं सुशीला बोल रही हूँ। आप कौन बोल रहे हैं?"},
+    {"speaker": "caller", "text": "मैं सीबीआई मुंबई ब्रांच से इंस्पेक्टर राजवीर मल्होत्रा बोल रहा हूँ। आपके आधार कार्ड पर एक मनी लॉन्ड्रिंग केस दर्ज हुआ है।"},
+    {"speaker": "receiver", "text": "क्या? मनी लॉन्ड्रिंग? मैंने तो कभी कुछ गलत नहीं किया... मैं तो रिटायर्ड टीचर हूँ।"},
+    {"speaker": "caller", "text": "मैडम, आपके नाम से एक बैंक अकाउंट खुला है जिसमें हवाला का पैसा आया है। आपके नाम पर अरेस्ट वारंट जारी हो चुका है।"},
+    {"speaker": "receiver", "text": "हे भगवान... पर... पर मुझे तो कुछ पता ही नहीं है। अब मैं क्या करूँ?"},
+    {"speaker": "caller", "text": "घबराइए मत। अभी से आप डिजिटल अरेस्ट में हैं। वीडियो कॉल चालू रखिए और कैमरे के सामने से मत हटिए।"},
+    {"speaker": "receiver", "text": "जी... जी ठीक है। क्या मैं अपने बेटे को एक बार फ़ोन कर लूँ?"},
+    {"speaker": "caller", "text": "बिल्कुल नहीं। यह केस गोपनीय है। अगर आपने किसी को भी बताया तो आपका बेटा भी इस केस में फँस जाएगा।"},
+    {"speaker": "receiver", "text": "नहीं नहीं, उसको कुछ मत कीजिए। मैं किसी को नहीं बताऊँगी।"},
+    {"speaker": "caller", "text": "अपना नाम साफ़ करने के लिए आपको अपने सारे पैसे आरबीआई के वेरिफ़िकेशन अकाउंट में ट्रांसफ़र करने होंगे। जाँच के बाद पूरा पैसा वापस मिल जाएगा।"},
+    {"speaker": "receiver", "text": "मेरे पास बस एक एफ़डी है... लगभग आठ लाख रुपये।"},
+    {"speaker": "caller", "text": "ठीक है। आज दो बजे से पहले बैंक जाइए और पूरी रकम इस अकाउंट में आरटीजीएस कर दीजिए। बैंक वाले पूछें तो बोलिए घर के काम के लिए है।"},
+    {"speaker": "receiver", "text": "ठीक है साहब... मैं... मैं अभी निकलती हूँ।"}
+  ]
+}

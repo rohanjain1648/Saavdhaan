@@ -1,0 +1,22 @@
+{
+  "id": "normal_family_money",
+  "label": "normal",
+  "title": "Daughter asks her father for hostel fees",
+  "language": "hi-IN",
+  "voices": {"caller": "Riyaa", "receiver": "Yashraj"},
+  "summary": "A student asks her father for hostel fees by Friday, he agrees to send it by UPI, she asks him not to tell her mother about the books, and he reminds her never to give money or OTP to strangers. Shares 'account', 'UPI', a deadline, 'don't tell anyone' and 'OTP' with the scam calls.",
+  "turns": [
+    {"speaker": "caller", "text": "हेलो पापा, मैं पूजा। आप फ़्री हो? एक छोटी सी बात करनी थी।"},
+    {"speaker": "receiver", "text": "हाँ बेटा, बोलो। सब ठीक है ना? हॉस्टल में खाना ठीक मिल रहा है?"},
+    {"speaker": "caller", "text": "हाँ पापा, सब ठीक है। बस इस महीने की हॉस्टल फ़ीस और किताबों के लिए थोड़े पैसे चाहिए थे।"},
+    {"speaker": "receiver", "text": "कितने चाहिए? पिछले महीने ही तो भेजे थे।"},
+    {"speaker": "caller", "text": "पापा, फ़ीस बारह हज़ार है और किताबें दो हज़ार की। शुक्रवार तक जमा करनी है, वरना लेट फ़ीस लगेगी।"},
+    {"speaker": "receiver", "text": "ठीक है, शाम को यूपीआई से तुम्हारे अकाउंट में भेज दूँगा। वही पुराना वाला अकाउंट है ना?"},
+    {"speaker": "caller", "text": "हाँ पापा, वही। और प्लीज़ मम्मी को अभी मत बताना कि मैंने फिर से किताबें खरीदीं, वो डाँटेंगी।"},
+    {"speaker": "receiver", "text": "हाहा, ठीक है, नहीं बताऊँगा। पर फ़ीस की रसीद मुझे व्हाट्सऐप पर भेज देना।"},
+    {"speaker": "caller", "text": "हाँ, भेज दूँगी। पैसे आ जाएँ तो मैं आपको कॉल करके बता दूँगी।"},
+    {"speaker": "receiver", "text": "ठीक है। और सुनो, कोई अनजान आदमी फ़ोन करके पैसे या ओटीपी माँगे, तो बिल्कुल मत देना।"},
+    {"speaker": "caller", "text": "पता है पापा, आप हर बार यही बोलते हो। चलो बाय, अपना ध्यान रखना।"},
+    {"speaker": "receiver", "text": "बाय बेटा।"}
+  ]
+}

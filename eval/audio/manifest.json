@@ -1,0 +1,227 @@
+{
+  "about": "Synthetic calls for Saavdhaan. Scripts written for this test, invented names, voiced with Gnani Timbre. 'phone' = street noise + mains hum, 300-3400 Hz, mu-law 8 kHz and back to 16 kHz.",
+  "updated_at": "2026-11-15T08:58:12+00:00",
+  "sample_rate": 16000,
+  "format": "WAV PCM16 mono",
+  "tts_model": "timbre-v3.0",
+  "counts": {
+    "clean": {
+      "scam": 4,
+      "normal": 4
+    },
+    "phone": {
+      "scam": 4,
+      "normal": 4
+    }
+  },
+  "files": [
+    {
+      "path": "clean/scam_cbi_digital_arrest.wav",
+      "id": "scam_cbi_digital_arrest",
+      "label": "scam",
+      "variant": "clean",
+      "duration_s": 89.95,
+      "title": "Fake CBI officer puts a retired teacher under 'digital arrest'",
+      "script": "scripts/scam_cbi_digital_arrest.json",
+      "voices": {
+        "caller": "Harshad",
+        "receiver": "Vasudha"
+      }
+    },
+    {
+      "path": "clean/scam_bank_kyc_otp.wav",
+      "id": "scam_bank_kyc_otp",
+      "label": "scam",
+      "variant": "clean",
+      "duration_s": 83.23,
+      "title": "Fake bank KYC call that ends with an OTP request",
+      "script": "scripts/scam_bank_kyc_otp.json",
+      "voices": {
+        "caller": "Shivani",
+        "receiver": "Yashraj"
+      }
+    },
+    {
+      "path": "clean/scam_customs_parcel.wav",
+      "id": "scam_customs_parcel",
+      "label": "scam",
+      "variant": "clean",
+      "duration_s": 78.8,
+      "title": "Fake customs officer: drugs found in a parcel in her name",
+      "script": "scripts/scam_customs_parcel.json",
+      "voices": {
+        "caller": "Prakash",
+        "receiver": "Riyaa"
+      }
+    },
+    {
+      "path": "clean/scam_trai_sim.wav",
+      "id": "scam_trai_sim",
+      "label": "scam",
+      "variant": "clean",
+      "duration_s": 73.82,
+      "title": "Fake TRAI officer: all your SIMs will be cut in two hours",
+      "script": "scripts/scam_trai_sim.json",
+      "voices": {
+        "caller": "Devansh",
+        "receiver": "Lakshmi"
+      }
+    },
+    {
+      "path": "clean/normal_bank_rm.wav",
+      "id": "normal_bank_rm",
+      "label": "normal",
+      "variant": "clean",
+      "duration_s": 68.0,
+      "title": "Real relationship manager about an FD and KYC renewal",
+      "script": "scripts/normal_bank_rm.json",
+      "voices": {
+        "caller": "Shivani",
+        "receiver": "Prakash"
+      }
+    },
+    {
+      "path": "clean/normal_clinic_reminder.wav",
+      "id": "normal_clinic_reminder",
+      "label": "normal",
+      "variant": "clean",
+      "duration_s": 69.96,
+      "title": "Clinic reception confirming an appointment",
+      "script": "scripts/normal_clinic_reminder.json",
+      "voices": {
+        "caller": "Lakshmi",
+        "receiver": "Harshad"
+      }
+    },
+    {
+      "path": "clean/normal_courier_directions.wav",
+      "id": "normal_courier_directions",
+      "label": "normal",
+      "variant": "clean",
+      "duration_s": 66.78,
+      "title": "Courier asking for directions, delivery code shown at the door",
+      "script": "scripts/normal_courier_directions.json",
+      "voices": {
+        "caller": "Devansh",
+        "receiver": "Vasudha"
+      }
+    },
+    {
+      "path": "clean/normal_family_money.wav",
+      "id": "normal_family_money",
+      "label": "normal",
+      "variant": "clean",
+      "duration_s": 67.91,
+      "title": "Daughter asks her father for hostel fees",
+      "script": "scripts/normal_family_money.json",
+      "voices": {
+        "caller": "Riyaa",
+        "receiver": "Yashraj"
+      }
+    },
+    {
+      "path": "phone/scam_cbi_digital_arrest.wav",
+      "id": "scam_cbi_digital_arrest",
+      "label": "scam",
+      "variant": "phone",
+      "duration_s": 89.95,
+      "title": "Fake CBI officer puts a retired teacher under 'digital arrest'",
+      "script": "scripts/scam_cbi_digital_arrest.json",
+      "voices": {
+        "caller": "Harshad",
+        "receiver": "Vasudha"
+      }
+    },
+    {
+      "path": "phone/scam_bank_kyc_otp.wav",
+      "id": "scam_bank_kyc_otp",
+      "label": "scam",
+      "variant": "phone",
+      "duration_s": 83.23,
+      "title": "Fake bank KYC call that ends with an OTP request",
+      "script": "scripts/scam_bank_kyc_otp.json",
+      "voices": {
+        "caller": "Shivani",
+        "receiver": "Yashraj"
+      }
+    },
+    {
+      "path": "phone/scam_customs_parcel.wav",
+      "id": "scam_customs_parcel",
+      "label": "scam",
+      "variant": "phone",
+      "duration_s": 78.8,
+      "title": "Fake customs officer: drugs found in a parcel in her name",
+      "script": "scripts/scam_customs_parcel.json",
+      "voices": {
+        "caller": "Prakash",
+        "receiver": "Riyaa"
+      }
+    },
+    {
+      "path": "phone/scam_trai_sim.wav",
+      "id": "scam_trai_sim",
+      "label": "scam",
+      "variant": "phone",
+      "duration_s": 73.82,
+      "title": "Fake TRAI officer: all your SIMs will be cut in two hours",
+      "script": "scripts/scam_trai_sim.json",
+      "voices": {
+        "caller": "Devansh",
+        "receiver": "Lakshmi"
+      }
+    },
+    {
+      "path": "phone/normal_bank_rm.wav",
+      "id": "normal_bank_rm",
+      "label": "normal",
+      "variant": "phone",
+      "duration_s": 68.0,
+      "title": "Real relationship manager about an FD and KYC renewal",
+      "script": "scripts/normal_bank_rm.json",
+      "voices": {
+        "caller": "Shivani",
+        "receiver": "Prakash"
+      }
+    },
+    {
+      "path": "phone/normal_clinic_reminder.wav",
+      "id": "normal_clinic_reminder",
+      "label": "normal",
+      "variant": "phone",
+      "duration_s": 69.96,
+      "title": "Clinic reception confirming an appointment",
+      "script": "scripts/normal_clinic_reminder.json",
+      "voices": {
+        "caller": "Lakshmi",
+        "receiver": "Harshad"
+      }
+    },
+    {
+      "path": "phone/normal_courier_directions.wav",
+      "id": "normal_courier_directions",
+      "label": "normal",
+      "variant": "phone",
+      "duration_s": 66.78,
+      "title": "Courier asking for directions, delivery code shown at the door",
+      "script": "scripts/normal_courier_directions.json",
+      "voices": {
+        "caller": "Devansh",
+        "receiver": "Vasudha"
+      }
+    },
+    {
+      "path": "phone/normal_family_money.wav",
+      "id": "normal_family_money",
+      "label": "normal",
+      "variant": "phone",
+      "duration_s": 67.91,
+      "title": "Daughter asks her father for hostel fees",
+      "script": "scripts/normal_family_money.json",
+      "voices": {
+        "caller": "Riyaa",
+        "receiver": "Yashraj"
+      }
+    }
+  ]
+}

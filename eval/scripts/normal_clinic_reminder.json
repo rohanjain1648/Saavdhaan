@@ -1,0 +1,23 @@
+{
+  "id": "normal_clinic_reminder",
+  "label": "normal",
+  "title": "Clinic reception confirming an appointment",
+  "language": "hi-IN",
+  "voices": {"caller": "Lakshmi", "receiver": "Harshad"},
+  "summary": "A clinic receptionist confirms tomorrow's appointment, asks for an Aadhaar copy for registration, gives fasting instructions, says payment is taken only at the clinic, and verifies the patient's name. Shares 'Aadhaar', 'payment', 'verify' with the scam calls.",
+  "turns": [
+    {"speaker": "caller", "text": "नमस्ते, मैं नवजीवन क्लिनिक के रिसेप्शन से बोल रही हूँ। क्या मेरी बात अमित वर्मा जी से हो रही है?"},
+    {"speaker": "receiver", "text": "हाँ जी, मैं अमित बोल रहा हूँ।"},
+    {"speaker": "caller", "text": "सर, कल सुबह साढ़े दस बजे डॉक्टर मेहता के साथ आपकी माँ का अपॉइंटमेंट है। बस कन्फ़र्म करने के लिए कॉल किया है।"},
+    {"speaker": "receiver", "text": "हाँ हाँ, याद है। हम समय पर आ जाएँगे।"},
+    {"speaker": "caller", "text": "ठीक है सर। पहली बार आ रहे हैं, तो रजिस्ट्रेशन के लिए आधार कार्ड की कॉपी और पुरानी रिपोर्ट्स साथ ले आइए।"},
+    {"speaker": "receiver", "text": "आधार की कॉपी चाहिए? अच्छा, ले आऊँगा। ब्लड टेस्ट से पहले कुछ खाना तो नहीं है?"},
+    {"speaker": "caller", "text": "हाँ सर, शुगर टेस्ट होगा, तो रात दस बजे के बाद कुछ मत खाइए। सिर्फ़ पानी पी सकते हैं।"},
+    {"speaker": "receiver", "text": "ठीक है। पेमेंट वहीं करना है, या पहले ऑनलाइन?"},
+    {"speaker": "caller", "text": "क्लिनिक पर ही कर दीजिए, कैश या कार्ड दोनों चलेगा। हम फ़ोन पर कोई पेमेंट नहीं लेते।"},
+    {"speaker": "receiver", "text": "अच्छा। अगर किसी वजह से देर हो जाए तो?"},
+    {"speaker": "caller", "text": "तो इसी नंबर पर बता दीजिएगा, हम अगला स्लॉट दे देंगे। एक बार वेरिफ़ाई कर लूँ, आपकी माँ का नाम सरला वर्मा ही लिखा है ना?"},
+    {"speaker": "receiver", "text": "हाँ जी, सही है। धन्यवाद।"},
+    {"speaker": "caller", "text": "धन्यवाद सर, कल मिलते हैं।"}
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "at": "2026-11-15T07:59:12+00:00",
+    "model": "timbre-v3.0",
+    "requests": 30,
+    "characters": 2333,
+    "cache_hits": 0,
+    "retries": 1,
+    "built": [
+      "scam_cbi_digital_arrest",
+      "scam_bank_kyc_otp"
+    ]
+  },
+  {
+    "at": "2026-11-15T08:58:12+00:00",
+    "model": "timbre-v3.0",
+    "requests": 71,
+    "characters": 5156,
+    "cache_hits": 30,
+    "retries": 10,
+    "built": [
+      "scam_cbi_digital_arrest",
+      "scam_bank_kyc_otp",
+      "scam_customs_parcel",
+      "scam_trai_sim",
+      "normal_bank_rm",
+      "normal_clinic_reminder",
+      "normal_courier_directions",
+      "normal_family_money"
+    ]
+  }
+]

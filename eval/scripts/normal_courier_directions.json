@@ -1,0 +1,21 @@
+{
+  "id": "normal_courier_directions",
+  "label": "normal",
+  "title": "Courier asking for directions, delivery code shown at the door",
+  "language": "hi-IN",
+  "voices": {"caller": "Devansh", "receiver": "Vasudha"},
+  "summary": "A delivery rider from a courier company asks for directions, verifies the address, says the parcel is prepaid and that the delivery code is shown at the door. Shares 'parcel', 'courier', 'verify', 'OTP' with the scam calls.",
+  "turns": [
+    {"speaker": "caller", "text": "हेलो मैडम, मैं स्पीडलाइन कूरियर से डिलीवरी वाला सुनील बोल रहा हूँ। आपका एक पार्सल है, मैं अभी आनंद मेडिकल स्टोर के पास खड़ा हूँ।"},
+    {"speaker": "receiver", "text": "हाँ हाँ, मेरा ही पार्सल होगा। मेडिकल स्टोर से सीधे आइए, फिर दूसरी गली में बाएँ मुड़ जाइए।"},
+    {"speaker": "caller", "text": "दूसरी गली में बाएँ... वहाँ एक मंदिर है ना?"},
+    {"speaker": "receiver", "text": "हाँ, मंदिर के ठीक सामने नीला गेट है। मकान नंबर बारह, पहली मंज़िल।"},
+    {"speaker": "caller", "text": "ठीक है मैडम। एक बार एड्रेस वेरिफ़ाई कर लूँ, शांति नगर, ब्लॉक सी?"},
+    {"speaker": "receiver", "text": "हाँ, सही है। पर मैं अभी घर पर नहीं हूँ, दस मिनट में पहुँचूँगी।"},
+    {"speaker": "caller", "text": "कोई बात नहीं, मैं पास वाली गली में दो डिलीवरी करके आता हूँ। पेमेंट पहले हो चुका है, कैश नहीं देना है।"},
+    {"speaker": "receiver", "text": "अच्छा। अगर मुझे देर हो जाए, तो पड़ोस में शर्मा आंटी को दे देना।"},
+    {"speaker": "caller", "text": "मैडम, इस पार्सल पर डिलीवरी ओटीपी लगा है, तो आपके हाथ में ही दूँगा। जब मैं गेट पर पहुँचूँ, तब मैसेज वाला कोड दिखा दीजिएगा।"},
+    {"speaker": "receiver", "text": "ठीक है, मैं जल्दी पहुँचती हूँ। गेट पर घंटी बजा देना।"},
+    {"speaker": "caller", "text": "जी मैडम, दस मिनट में पहुँचता हूँ।"}
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "scam_customs_parcel",
+  "label": "scam",
+  "title": "Fake customs officer: drugs found in a parcel in her name",
+  "language": "hi-IN",
+  "voices": {"caller": "Prakash", "receiver": "Riyaa"},
+  "summary": "Caller poses as an airport customs officer, says a courier parcel in her name to Cambodia held passports and drugs, threatens an FIR within an hour, tells her not to cut the call or tell her father, asks her to install a screen-sharing app and send money by UPI.",
+  "turns": [
+    {"speaker": "caller", "text": "हेलो, मैं मुंबई एयरपोर्ट कस्टम्स से ऑफ़िसर दीपक सहगल बोल रहा हूँ। क्या आप नेहा कपूर हैं?"},
+    {"speaker": "receiver", "text": "हाँ, मैं नेहा बोल रही हूँ। कस्टम्स? क्या हुआ?"},
+    {"speaker": "caller", "text": "आपके नाम से स्पीडलाइन कूरियर का एक पार्सल कंबोडिया जा रहा था। उसमें पाँच पासपोर्ट, तीन क्रेडिट कार्ड और दो सौ ग्राम ड्रग्स मिले हैं।"},
+    {"speaker": "receiver", "text": "पर मैंने तो कोई पार्सल भेजा ही नहीं! ज़रूर कोई गलती हुई है।"},
+    {"speaker": "caller", "text": "पार्सल पर आपका आधार नंबर और मोबाइल नंबर लिखा है। अगर आपने नहीं भेजा, तो किसी ने आपकी आईडी का गलत इस्तेमाल किया है।"},
+    {"speaker": "receiver", "text": "अब... अब क्या होगा? मुझे सच में कुछ नहीं पता।"},
+    {"speaker": "caller", "text": "मामला नारकोटिक्स विभाग को जा चुका है। एक घंटे के अंदर आपके खिलाफ़ एफ़आईआर हो जाएगी, जब तक आप वेरिफ़िकेशन पूरा नहीं करतीं।"},
+    {"speaker": "receiver", "text": "वेरिफ़िकेशन कैसे होगा? मैं अभी ऑफ़िस में हूँ।"},
+    {"speaker": "caller", "text": "यह कॉल मत काटिए। अपने फ़ोन पर स्क्रीन शेयर करने वाला ऐप डाउनलोड कीजिए, मैं आपको लिंक भेज रहा हूँ।"},
+    {"speaker": "receiver", "text": "ठीक है... पर क्या मैं अपने पापा से एक बार पूछ लूँ?"},
+    {"speaker": "caller", "text": "नहीं मैडम, यह गोपनीय जाँच है। अपने खाते की पूरी रकम हमारे सुरक्षित सरकारी खाते में डालिए। क्लियरेंस के बाद पैसा वापस आ जाएगा।"},
+    {"speaker": "receiver", "text": "मेरे अकाउंट में ज़्यादा पैसे नहीं हैं... शायद पचास हज़ार होंगे।"},
+    {"speaker": "caller", "text": "उतना अभी यूपीआई से भेजिए। बाकी हम कल देख लेंगे।"}
+  ]
+}
