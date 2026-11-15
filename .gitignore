@@ -1,0 +1,21 @@
+# Secrets: never commit
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Generated audio (rebuild with: python -m eval.make_audio, cached clips cost no credits)
+eval/audio/cache/
+backend/tests_audio/cache/received_warning.wav
+
+# Tool and editor state
+.remember/
+.playwright-mcp/
+.impeccable/
+.reticle-setup-crash.log
+
+
+PLAN.md
