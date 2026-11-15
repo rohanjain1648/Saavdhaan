@@ -10,6 +10,14 @@ to a family member's phone.
 
 Built for Gnani AI's *Great Indian AI Internship Challenge* (November 2026).
 
+---
+
+### Links & Demo
+
+- **Live Application:** [https://saavdhaan-fifn.onrender.com](https://saavdhaan-fifn.onrender.com)
+- **Demo Video:** [Watch on Google Drive](https://drive.google.com/file/d/116LW82iXBqYWwUBkbArI4F7dHbwMJpqE/view?usp=sharing)
+- **Announcement Post:** [View on X (Twitter)](https://x.com/ROHANJAIN162004/status/2121941130694754548?a=5I2hGmFP1O02yr3OQdE&s=20)
+
 > **Synthetic data only.** Every call in this repository is a script written for this project and
 > voiced with Gnani Timbre. No real call, person, phone number, account, Aadhaar or PAN is used.
 

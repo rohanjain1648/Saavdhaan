@@ -366,6 +366,8 @@ class CallSession:
             log.exception("engine.add_sentence failed")
             self.error(f"Risk engine failed on a sentence: {e!r}")
             return
+        log.info("heard #%d at %.1fs: %s -> risk %d %s", self.index, self.t_ms() / 1000, text[:90],
+                 update.score, update.level)
         self._on_update(update)
         self._schedule_judge()
 
