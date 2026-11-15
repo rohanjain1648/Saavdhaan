@@ -19,3 +19,5 @@ backend/tests_audio/cache/received_warning.wav
 
 
 PLAN.md
+# Fo sign-in tokens: never commit
+.fo_tokens.json

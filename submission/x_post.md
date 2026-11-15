@@ -11,14 +11,16 @@
 - **Rules:** no bought likes, bots or engagement swaps; they disqualify the entry.
 - The Tamil reply (6/) is verified: one live Tanglish test call, warning in Tamil at 18 s.
 
-## Main post (with the video)
+## Main post
+
+Replace `DRIVE_LINK` with your public Google Drive link (Share → General access → *Anyone with the link*). Better still, attach the video file itself and delete "Demo: DRIVE_LINK".
 
 ```
 A fake "CBI officer" tells your mother she's under digital arrest.
 
-Saavdhaan hears it on speakerphone, catches the scam live in Hinglish, warns her aloud and alerts the family.
+Saavdhaan catches the scam live in Hinglish or Tanglish, warns her aloud and alerts the family.
 
-Built on @GnaniAi Prisma + Timbre. Synthetic test call.
+Built on @GnaniAi Prisma + Timbre. Demo: DRIVE_LINK
 
 #GreatIndianAIInternshipChallenge #GnaniAI
 ```
@@ -50,13 +52,13 @@ One word isn't a scam. The combination is.
 **4/**
 
 ```
-The family is alerted live on their phone, with the caller's exact words, so nobody faces this call alone.
+The family is alerted too: instantly on the family page, then Wajo Fo automatically emails them and phones them with a spoken alert. Tested live: the call and the email both arrived.
 ```
 
 **5/**
 
 ```
-Next: a real phone line instead of a laptop mic, Gnani Evon self-hosted so transcripts stay in India, and more Indian languages.
+Next: a real phone line instead of a laptop mic, transcripts kept in India, and more Indian languages.
 
 If you ever get this call: hang up and call 1930.
 ```

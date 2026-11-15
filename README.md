@@ -23,6 +23,7 @@ Built for Gnani AI's *Great Indian AI Internship Challenge* (November 2026).
 - [How it works](#how-it-works)
 - [Quick start](#quick-start)
 - [Running a demo](#running-a-demo)
+- [Wajo Fo alerts](#wajo-fo-alerts-sms-email-phone-call)
 - [Configuration](#configuration)
 - [The risk engine](#the-risk-engine)
 - [Gnani API notes](#gnani-api-notes)
@@ -57,6 +58,7 @@ these cases is **1930**.
 | Score | Each sentence is checked for 7 scam tactics, scored 0–100 | Keyword engine, plus an optional LLM second opinion |
 | Warn | After two dangerous updates in a row, a Hindi warning plays out loud | **Gnani Timbre v3.0** text-to-speech |
 | Alert | Family devices with the family page open get the alert live, with the tactics and quotes | WebSocket push |
+| Reach the family anywhere | **Wajo Fo** emails the family and phones them with a spoken alert (and is asked to text them) | Fo MCP server, `ask_fo` |
 | Summarise | End-of-call card: peak risk, tactics, evidence quotes, 1930 advice | |
 
 The seven tactics: authority impersonation, "digital arrest", urgency and threats, isolation and
@@ -234,6 +236,39 @@ you are done. The family page needs no microphone, so plain HTTP works on the ph
 screen itself must stay on `localhost` (or be served over HTTPS), because browsers only allow the
 microphone on secure pages.
 
+## Wajo Fo alerts (SMS, email, phone call)
+
+When Saavdhaan warns, the server asks [Wajo Fo](https://wajo.ai) to reach the family wherever they
+are: an email with the tactics and the caller's words, a phone call that speaks the alert, and a text
+message. It talks to Fo's official MCP server (`https://mcp.api.wajo.ai/fo`) and calls its `ask_fo`
+tool with a precise request built from the call ([`backend/fo_client.py`](backend/fo_client.py)).
+
+**Set up once**
+
+1. Sign in: `.\.venv\Scripts\python.exe -m backend.fo_login`, then log in to Wajo in the browser
+   that opens and approve *Saavdhaan scam-call guardian*. Tokens are saved to `.fo_tokens.json`
+   (gitignored) and refreshed automatically.
+2. In `.env`, set `FAMILY_ALERT_PHONE` and `FAMILY_ALERT_EMAIL`. Contact details live only in `.env`.
+3. Restart the server. `/health` shows `"fo": {"configured": true, ...}` and the outcome of the last
+   request.
+
+**What happens on a scam call**
+
+- The call screen's alert card shows "Asking Fo to text, email and call the family…", then Fo's answer.
+  The family page shows it too.
+- Fo works asynchronously: `ask_fo` returns after up to about 40 seconds (often with status
+  `working`), and Fo finishes the email and call on its own.
+  `.\.venv\Scripts\python.exe -m backend.fo_follow` prints Fo's progress on the latest alert.
+- One Fo request per call, at the first warning. Fo requests are never cancelled when the call ends.
+
+**Verified live on 15 November 2026:** a scam test call triggered the warning at 11 s; Fo sent the
+email and placed the phone call with the alert script, and both were received on the family
+member's inbox and phone about a minute later. Fo's text message was refused for delivery. If you
+once replied STOP to Fo, reply START to re-enable texts.
+
+**Running the evaluation?** Set `FO_ALERTS=off` first, or every scam call in the run will email and
+phone the family.
+
 ## Configuration
 
 Settings are read from `.env` in the project root (see [`.env.example`](.env.example)). Never
@@ -246,6 +281,9 @@ commit `.env`.
 | `LLM_BASE_URL` | no | `https://api.groq.com/openai/v1` | Any OpenAI-compatible chat endpoint |
 | `LLM_MODEL` | no | `llama-3.3-70b-versatile` | Model name at that endpoint |
 | `WARNING_VOICE` | no | `Avinash` | Timbre v3.0 voice for the spoken warning |
+| `FAMILY_ALERT_PHONE` | for Fo | | Number Fo phones (and texts) when a scam is detected, e.g. `+91…` |
+| `FAMILY_ALERT_EMAIL` | for Fo | | Address Fo emails when a scam is detected |
+| `FO_ALERTS` | no | `on` | `off` stops Fo alerts (the tests always force it off) |
 | `GNANI_STT_URL`, `GNANI_TTS_URL` | no | Gnani production URLs | Overrides, used by the offline tests |
 
 The key and the URL must belong to the same provider: an OpenAI key sent to Groq's URL is rejected.
@@ -476,7 +514,9 @@ nothing measured against it can pass as a real result.
 - **Small test set.** Eight scripted calls voiced by text-to-speech. Real calls have crosstalk,
   accents and silences these do not.
 - **Family alerts reach open pages only.** A family device receives the alert only while the
-  family page is open and connected. There is no SMS or WhatsApp delivery yet.
+  family page is open and connected. Beyond the page, Wajo Fo emails and phones the family; Fo works
+  asynchronously, so its email and call arrive about a minute after the warning, not instantly. In the
+  first live test Fo's text message was refused for delivery (see Wajo Fo alerts).
 - **One call at a time per key** on accounts limited to one active request.
 
 ## Roadmap
@@ -485,7 +525,9 @@ nothing measured against it can pass as a real result.
    Pipecat and LiveKit integrations), so no laptop is needed. Phone audio is 8 kHz µ-law, which
    Prisma accepts after decoding to PCM.
 2. **Self-hosted Gnani Evon model** as the judge, so transcripts never leave India.
-3. **SMS and WhatsApp family alerts**, in addition to the family page.
+3. **Faster, guaranteed family alerts**: Fo's email and call arrive about a minute after the warning.
+   Next: working SMS delivery to Indian numbers, a direct voice-call route for an instant alert, and
+   several family contacts per person.
 4. **More languages** for the rules and the warning: Telugu, Kannada, Bengali, Marathi, then the
    rest of Prisma's 10.
 5. **A pilot** with a bank's senior-citizen customers, tracking false alarms per 100 normal calls

@@ -52,6 +52,7 @@ const ui = {
   alertTitle: $("alert-title"),
   alertText: $("alert-text"),
   alertTag: $("alert-tag"),
+  alertFo: $("alert-fo"),
   summary: $("summary"),
   summaryClose: $("summary-close"),
   sumPeak: $("sum-peak"),
@@ -504,6 +505,7 @@ function resetScreen() {
   ui.warning.hidden = true;
   ui.warning.dataset.audio = "none";
   ui.alert.hidden = true;
+  ui.alertFo.hidden = true;
   ui.summary.hidden = true;
   ui.body.classList.remove("flash-on", "has-alert");
   gauge.target = 0;
@@ -526,6 +528,7 @@ function onMessage(data) {
     case "risk": return onRisk(msg);
     case "warning": return onWarning(msg);
     case "alert": return onAlert(msg);
+    case "fo": return onFo(msg);
     case "summary": return onSummary(msg);
     case "error": return onServerError(msg);
     default: return undefined; // newer message types are ignored
@@ -631,6 +634,14 @@ function onAlert(msg) {
   ui.body.classList.add("has-alert");
 }
 
+// Wajo Fo: SMS, email and phone call to the family, requested by the server when it warns.
+function onFo(msg) {
+  ui.alertFo.textContent = String(msg.text || "");
+  ui.alertFo.dataset.state = String(msg.state || "");
+  ui.alertFo.hidden = !msg.text;
+  if (msg.state === "failed") showError(String(msg.text || "Fo request failed."), { title: "Fo", key: "fo" });
+}
+
 function onSummary(msg) {
   const c = call;
   c.gotSummary = true;
@@ -658,6 +669,7 @@ function onSummary(msg) {
   if (msg.advice) ui.sumAdvice.textContent = String(msg.advice);
   if (msg.error) showError(`The summary is incomplete: ${msg.error}`, { title: "Server error" });
   ui.alert.hidden = true;
+  ui.alertFo.hidden = true;
   ui.body.classList.remove("has-alert");
   ui.summary.hidden = false;
   render();

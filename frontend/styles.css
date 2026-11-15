@@ -567,3 +567,55 @@ mark {
     transition-duration: 1ms !important;
   }
 }
+
+/* ---- Theme: myzenn-style night (dark teal-black, soft teal glow, thin spaced type) -------------
+   A colour-and-type layer only; layout and behaviour above are unchanged. Danger stays red so the
+   alarm still reads as an alarm. Latin text uses Jost; Devanagari and Tamil fall back per glyph. */
+:root {
+  --night: #04131a;
+  --umber: #171106;
+  --maroon: #1e0709;
+  --teal: #2ec4c0;
+  --saffron: #f0a646;
+  --sindoor: #ff4b4b;
+  --ink: #e6f2f2;
+  --ink-dim: #7f9ca1;
+  --paper: #eef7f6;
+  --font: "Jost", "Anek Devanagari", "Nirmala UI", "Segoe UI", system-ui, sans-serif;
+}
+body {
+  background-image:
+    radial-gradient(circle 34rem at 50% 40%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 72%),
+    radial-gradient(ellipse 90% 70% at 50% -10%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%);
+}
+.brand { font-weight: 300; letter-spacing: 0.32em; text-transform: uppercase; font-size: 1.9rem; }
+.status { background: rgba(255, 255, 255, 0.025); border-color: rgba(46, 196, 192, 0.22); letter-spacing: 0.04em; }
+body[data-phase="listening"] .status,
+body[data-phase="stopping"] .status { border-color: rgba(46, 196, 192, 0.45); }
+.headline { font-weight: 300; font-stretch: 100%; letter-spacing: 0.005em; line-height: 1.05; max-width: none; font-size: 4.9rem; }
+body[data-level="danger"] .headline { color: #fff; font-weight: 400; }
+.tactics h2 { text-transform: uppercase; letter-spacing: 0.32em; font-size: 1.25rem; color: var(--accent); }
+.unit, .demo-note { letter-spacing: 0.04em; }
+.line.latest { font-weight: 400; }
+.btn {
+  background: transparent;
+  color: var(--teal);
+  border: 1px solid color-mix(in srgb, var(--teal) 60%, transparent);
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  padding: 1.2rem 2.6rem 1.1rem;
+  transition: background 300ms ease, color 300ms ease;
+}
+.btn.start { background: transparent; }
+.btn.start:hover { background: color-mix(in srgb, var(--teal) 14%, transparent); }
+.btn.stop { background: transparent; color: var(--ink); border-color: rgba(230, 242, 242, 0.5); }
+.btn.close { background: var(--coal); color: var(--paper); border-color: transparent; letter-spacing: 0.12em; }
+
+/* Wajo Fo status line inside the family alert card */
+.notif-fo { margin: 0.9rem 0 0; padding: 0.7rem 1rem; border-radius: 0.8rem; font-size: 1.35rem; font-weight: 500;
+            background: rgba(46, 196, 192, 0.14); color: #0b4a48; }
+.notif-fo[data-state="requesting"]::before { content: "● "; color: var(--saffron); }
+.notif-fo[data-state="sent"]::before { content: "✓ "; color: #13807c; }
+.notif-fo[data-state="failed"] { background: rgba(255, 75, 75, 0.14); color: #8a1c1c; }

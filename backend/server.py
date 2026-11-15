@@ -22,6 +22,7 @@ from fastapi.staticfiles import StaticFiles
 from backend.contract import FRAME_BYTES, SAMPLE_RATE, RiskUpdate, level_for
 from backend.gnani_stt import GnaniSTT, GnaniSTTError, single_locale
 from backend.gnani_tts import GnaniTTSError, synthesize
+from backend import fo_client
 
 ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(ROOT / ".env")
@@ -124,6 +125,10 @@ _warning_lock: tuple[asyncio.AbstractEventLoop, asyncio.Lock] | None = None
 # WebSocket on /ws/family. Alerts are pushed to all of them; the call screen is told how many
 # devices actually received it.
 FAMILY: set[WebSocket] = set()
+
+# Fo requests outlive the call that triggered them (Fo can take a minute to answer), so they are
+# held here rather than on the CallSession, and never cancelled when the call ends.
+_BACKGROUND: set[asyncio.Task] = set()
 
 
 async def notify_family(event: dict) -> int:
@@ -395,6 +400,26 @@ class CallSession:
         })
         log.info("Family alert delivered to %d device(s)", delivered)
         self.emit({"type": "alert", "to": "family", "text": text, "delivered": delivered})
+        if fo_client.configured():
+            self.emit({"type": "fo", "state": "requesting",
+                       "text": "Asking Fo to text, email and call the family…"})
+            task = asyncio.create_task(self._ask_fo(update))
+            _BACKGROUND.add(task)
+            task.add_done_callback(_BACKGROUND.discard)
+
+    async def _ask_fo(self, update: RiskUpdate) -> None:
+        tactics = [TACTIC_NAMES[t] for t in update.tactics if t in TACTIC_NAMES]
+        res = await fo_client.alert_family(tactics, update.evidence[:3], self.first_warning_ms, self.warn_lang())
+        if res.get("ok"):
+            text = "Fo is texting, emailing and calling the family" + \
+                   (" (working on it)" if res.get("status") == "working" else "")
+        else:
+            text = f"Fo request failed: {res.get('reply') or res.get('status')}"
+        event = {"type": "fo", "state": "sent" if res.get("ok") else "failed",
+                 "status": res.get("status"), "text": text}
+        log.info("Fo: %s", text)
+        self.emit(event)               # no-op if the call screen has gone
+        await notify_family(event)
 
     # ---- LLM judge: background only, at most one in flight, re-run once if sentences arrived meanwhile
     def _schedule_judge(self) -> None:
@@ -487,6 +512,7 @@ async def health() -> dict:
         "warning_audio_ready": WARNING_LANGUAGE in _warning_wav,
         "warning_audio_languages": {lang: lang in _warning_wav for lang in WARNINGS},
         "family_devices": len(FAMILY),
+        "fo": {"configured": fo_client.configured(), **fo_client.LAST_STATUS},
         "llm_judge": _llm_status(),
     }
 

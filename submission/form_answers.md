@@ -82,7 +82,8 @@ this write-up. [CONFIRM or edit: I used AI coding assistants for parts of the co
 - A call-merge phone line, so the guardian joins the call as a third party and needs no laptop.
 - A self-hosted Gnani Evon model, so transcripts stay in India.
 - Consent from everyone on the call, and a firm rule that no call audio is stored.
-- Family alerts by SMS or WhatsApp as well as the family page, and more languages for the warning.
+- Family alerts by SMS, email and an automatic phone call (through Wajo Fo) as well as the family
+  page, and more languages for the warning.
 
 ## Links
 
