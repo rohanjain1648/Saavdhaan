@@ -2,9 +2,10 @@
 
 **A live guardian for "digital arrest" scam calls, built on Gnani AI's Indian-language speech models.**
 
-Saavdhaan listens to a phone call on speakerphone, transcribes it as it happens in Hindi, English
-and Hinglish, and scores every sentence for the tactics these scams depend on. When the call turns
-dangerous, it says a warning out loud in Hindi and pushes a live alert, with the caller's own words,
+Saavdhaan listens to a phone call on speakerphone, transcribes it as it happens in Hindi, Tamil,
+English and the mix of them people actually speak (Hinglish, Tanglish), and scores every sentence
+for the tactics these scams depend on. When the call turns dangerous, it says a warning out loud in
+the caller's language and pushes a live alert, with the caller's own words,
 to a family member's phone.
 
 Built for Gnani AI's *Great Indian AI Internship Challenge* (November 2026).
@@ -195,7 +196,13 @@ Then open:
 
 - **http://localhost:8000**: the call screen
 - **http://localhost:8000/family.html**: the family page
+- **http://localhost:8000/?lang=ta-IN**: the call screen for a Tamil / Tanglish call (warning in Tamil)
 - **http://localhost:8000/health**: what the server is running with
+
+**Languages.** Add `?lang=` to the call screen's address: `hi-IN` (default; Hindi, English and
+Hinglish), `ta-IN` (Tamil, English and Tanglish), or `indic-auto` to let Prisma detect the language,
+with the warning following the detected language. The live stream accepts one locale at a time, and
+`format: codemix` keeps English words in Latin script in both languages.
 
 The examples use the Windows path `.\.venv\Scripts\python.exe`; on macOS and Linux use
 `./.venv/bin/python`.
@@ -459,8 +466,10 @@ nothing measured against it can pass as a real result.
 - **Blind spot during the warning.** The microphone is paused for the roughly 12 seconds the
   warning plays, so anything the caller says then is not heard. A shorter warning would narrow
   this.
-- **Hindi and Hinglish.** The keyword rules and the warning are Hindi and English only, although
-  Prisma and Timbre support 10 Indian languages.
+- **Two Indian languages so far.** The keyword rules and the warning cover Hindi/Hinglish and
+  Tamil/Tanglish, although Prisma and Timbre support 10 Indian languages. Tamil was added last: it
+  has one live test call and unit tests, not the 16-run evaluation, and its warning text should be
+  reviewed by a native speaker.
 - **Warnings come mid-call.** Median 50 s into the test calls, because it waits for a combination
   of tactics rather than a single word. That avoids false alarms but means the first minute of a
   scam is heard before it speaks.
@@ -477,7 +486,8 @@ nothing measured against it can pass as a real result.
    Prisma accepts after decoding to PCM.
 2. **Self-hosted Gnani Evon model** as the judge, so transcripts never leave India.
 3. **SMS and WhatsApp family alerts**, in addition to the family page.
-4. **More languages** for the rules and the warning: Tamil, Telugu, Kannada, Bengali, Marathi.
+4. **More languages** for the rules and the warning: Telugu, Kannada, Bengali, Marathi, then the
+   rest of Prisma's 10.
 5. **A pilot** with a bank's senior-citizen customers, tracking false alarms per 100 normal calls
    and seconds to warning.
 

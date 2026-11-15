@@ -56,7 +56,12 @@ phone-quality versions. Scams warned: 4/4 clean and 4/4 phone. False alarms: 0/4
 phone. Median time from call start to the spoken warning: 50 s (range 33 to 67 s). Median transcript
 latency reported by Prisma: 81 ms clean, 75 ms phone (514 sentences). Risk scoring for this run was
 keyword rules only. Run on 15 Nov 2026 at real-time speed against the live Gnani APIs. This is a
-smoke test, not a benchmark. Scripts, audio pipeline and raw event logs are in `eval/`.
+smoke test, not a benchmark.
+
+Tamil / Tanglish (added last): one live synthetic Tanglish scam call through Prisma (`ta-IN`,
+code-mix) reached danger at "arrest warrant" and Saavdhaan spoke the warning in Tamil with Timbre
+18 s into the call; Tamil scam and normal transcripts are also covered by unit tests. It has not
+been through the 16-run evaluation. Scripts, audio pipeline and raw event logs are in `eval/`.
 
 ## Contribution (solo participant)
 
