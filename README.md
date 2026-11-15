@@ -19,6 +19,7 @@ Built for Gnani AI's *Great Indian AI Internship Challenge* (November 2026).
 
 - [The problem](#the-problem)
 - [What it does](#what-it-does)
+- [Screenshots](#screenshots)
 - [Results](#results)
 - [How it works](#how-it-works)
 - [Quick start](#quick-start)
@@ -26,7 +27,7 @@ Built for Gnani AI's *Great Indian AI Internship Challenge* (November 2026).
 - [Wajo Fo alerts](#wajo-fo-alerts-sms-email-phone-call)
 - [Configuration](#configuration)
 - [The risk engine](#the-risk-engine)
-- [Gnani API notes](#gnani-api-notes)
+- [How Gnani AI powers Saavdhaan](#how-gnani-ai-powers-saavdhaan)
 - [WebSocket protocol](#websocket-protocol)
 - [Testing](#testing)
 - [Evaluation](#evaluation)
@@ -72,6 +73,20 @@ The spoken warning, in Hindi:
 > "Careful. This call may be a scam. No police or bank asks for money or an OTP on the phone.
 > Hang up and contact 1930."
 
+## Screenshots
+
+| | |
+|---|---|
+| ![Call screen, ready](docs/images/call-screen-ready.png) | ![Call screen, listening](docs/images/call-screen-listening.png) |
+| **Ready.** The call screen before a call: risk meter at 0, the seven tactics, one button. | **Listening.** Gnani Prisma transcribes the Hinglish call sentence by sentence; matched phrases are highlighted and the meter climbs. |
+| ![Call screen, warning](docs/images/call-screen-warning.png) | ![Call summary](docs/images/call-screen-summary.png) |
+| **Danger.** The Hindi warning, spoken by Gnani Timbre, plays aloud; the family alert card reports delivery and Fo's progress. | **Summary.** Peak risk, time of the first warning, the tactics, the caller's own words and the 1930 helpline. |
+
+![Family page receiving a live alert](docs/images/family-page-alert.png)
+
+**Family page.** A relative's phone receives the alert live, with the tactics and the caller's quoted
+words, then a "call ended" update. Wajo Fo also emails and phones them.
+
 ## Results
 
 Measured on 15 November 2026 by streaming each test call at real-time speed through the live
@@ -109,27 +124,97 @@ none reached "danger".
 
 ## How it works
 
+### Architecture
+
+```mermaid
+flowchart LR
+    subgraph Caller["Phone call on speakerphone"]
+        PHONE["Scam caller"]
+    end
+
+    subgraph Browser["Browser: call screen (frontend/)"]
+        MIC["Microphone<br/>echo cancel and AGC off"]
+        WORKLET["pcm-worklet.js<br/>16 kHz mono PCM16<br/>1,024-byte frames"]
+        UI["index.html + app.js<br/>transcript, risk meter, tactics<br/>warning player, alert card, summary"]
+    end
+
+    subgraph Server["FastAPI backend (backend/server.py)"]
+        WS["/ws/call<br/>CallSession"]
+        STT["gnani_stt.py<br/>streaming client"]
+        RISK["risk/<br/>keyword engine, instant<br/>+ optional LLM judge"]
+        TTS["gnani_tts.py<br/>warning audio, cached per language"]
+        FAM["/ws/family<br/>broadcast hub"]
+        FOC["fo_client.py<br/>MCP client, OAuth"]
+    end
+
+    subgraph Gnani["Gnani AI (api.vachana.ai)"]
+        PRISMA["Prisma v3.0<br/>streaming speech-to-text<br/>hi-IN / ta-IN, codemix"]
+        TIMBRE["Timbre v3.0<br/>text-to-speech"]
+    end
+
+    subgraph External["Other services"]
+        LLM["OpenAI-compatible LLM<br/>optional second opinion"]
+        FO["Wajo Fo MCP<br/>mcp.api.wajo.ai/fo"]
+    end
+
+    subgraph Family["Family"]
+        FPAGE["family.html<br/>on a relative's phone"]
+        INBOX["Email"]
+        RING["Phone call / SMS"]
+    end
+
+    PHONE -- sound --> MIC --> WORKLET -- binary frames --> WS
+    WS --> STT -- "wss frames" --> PRISMA -- "one transcript per sentence" --> STT
+    STT --> RISK
+    RISK -. "last 10 sentences" .-> LLM
+    RISK -- "should_warn" --> WS
+    TTS -- "warning text" --> TIMBRE -- "WAV" --> TTS
+    TTS --> WS
+    WS -- "transcript, risk, warning, alert, fo, summary" --> UI
+    WS --> FAM -- "alert, fo, call_ended" --> FPAGE
+    WS --> FOC -- "ask_fo" --> FO
+    FO --> INBOX
+    FO --> RING
 ```
- phone on speaker
-        │ sound
-        ▼
-┌──────────────────┐   1,024-byte PCM16 frames   ┌──────────────────────────┐
-│ Call screen      │ ──────── /ws/call ────────▶ │ FastAPI backend          │
-│ frontend/        │                             │ backend/server.py        │
-│  index.html      │ ◀── transcript, risk, ───── │                          │
-│  pcm-worklet.js  │     warning, alert, summary │   CallSession            │
-└──────────────────┘                             │    │ frames      ▲ text  │
-                                                 │    ▼             │       │
-┌──────────────────┐                             │  Gnani Prisma v3.0 (wss) │
-│ Family page      │ ◀─────── /ws/family ─────── │    │ one sentence        │
-│ frontend/        │   alert, call_ended         │    ▼                     │
-│  family.html     │                             │  RiskEngine              │
-└──────────────────┘                             │   keywords (instant)     │
-                                                 │   LLM judge (background) │
-                                                 │    │ should_warn         │
-                                                 │    ▼                     │
-                                                 │  Gnani Timbre v3.0 WAV   │
-                                                 └──────────────────────────┘
+
+### One scam call, in time order
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant B as Call screen
+    participant S as Backend
+    participant P as Gnani Prisma
+    participant R as Risk engine
+    participant T as Gnani Timbre
+    participant F as Family page
+    participant W as Wajo Fo
+
+    Note over S,T: At startup the warning is synthesised once per language and cached
+    B->>S: start (language)
+    S->>P: open stream (prisma-v3.0, codemix, keyterms)
+    S-->>B: status listening
+    loop every 32 ms
+        B->>S: 1,024-byte PCM16 frame
+        S->>P: same frame
+    end
+    P-->>S: transcript, one sentence, about 80 ms after it ends
+    S-->>B: transcript
+    S->>R: add_sentence (keywords, under 1 ms)
+    R-->>S: risk update
+    S-->>B: risk (meter, tactics, evidence)
+    Note over R: two dangerous updates in a row
+    S-->>B: warning (text + Timbre WAV), plays aloud
+    S->>F: alert (tactics, caller's words)
+    S-->>B: alert (delivered to N devices)
+    S->>W: ask_fo (text, email and call the family)
+    W-->>S: working, Fo continues on its own
+    S-->>B: fo status
+    B->>S: stop
+    S->>P: commit, close
+    S-->>B: summary
+    S->>F: call_ended
+    W-)F: email and phone call reach the family, about a minute later
 ```
 
 **One call, step by step**
@@ -343,29 +428,84 @@ Scores for the built-in test transcripts, including the real LLM judge when a ke
 .\.venv\Scripts\python.exe -m backend.risk.report
 ```
 
-## Gnani API notes
+## How Gnani AI powers Saavdhaan
 
-Facts verified against the live API on 15 November 2026, including several the documentation
-does not make clear.
+Gnani's models do the two things Saavdhaan cannot work without: **hearing an Indian phone call as
+people really speak it**, and **answering back in their language**. Every live transcript, every
+spoken warning and every test call in the evaluation comes from Gnani.
 
-**Speech-to-text, streaming:** `wss://api.vachana.ai/stt/v3/stream`
+| Where | Gnani model | What it does in Saavdhaan | Code |
+|---|---|---|---|
+| Live call | **Prisma v3.0**, streaming speech-to-text | Turns the speakerphone audio into one transcript per sentence while the call is happening | [`backend/gnani_stt.py`](backend/gnani_stt.py) |
+| The warning | **Timbre v3.0**, text-to-speech | Speaks the warning in Hindi or Tamil, in the call's language | [`backend/gnani_tts.py`](backend/gnani_tts.py), [`backend/server.py`](backend/server.py) |
+| Test calls | **Timbre v3.0** | Voices the 8 synthetic two-speaker calls (plus a Tamil one) used to measure the system | [`eval/make_audio.py`](eval/make_audio.py), [`backend/tests_audio/make_tamil_sample.py`](backend/tests_audio/make_tamil_sample.py) |
+| Smoke tests | Prisma + Timbre | Timbre speaks a scam script and Prisma transcribes it back, end to end | [`backend/tests_audio/smoke_stt.py`](backend/tests_audio/smoke_stt.py) |
 
-- Settings go in the WebSocket upgrade headers: `x-api-key-id`, `model: prisma-v3.0`,
-  `language_code`, `format: codemix`, `x-sample-rate: 16000`, `x-min-silence-ms: 300`, and
-  `keyterms` (scam vocabulary such as CBI, OTP, AnyDesk and KYC, to bias recognition on noisy
-  audio).
-- **The live stream accepts exactly one locale.** `hi-IN,en-IN` is refused with *"exactly one
-  locale is required"*; `hi-IN` and `indic-auto` connect. With `format: codemix`, `hi-IN` keeps the
-  English words of a Hinglish sentence in Latin script ("मुंबई cyber crime branch से inspector
-  वर्मा"), which is what the keyword engine expects. The client keeps only the first locale if
-  given a list.
-- Audio must arrive as binary frames of **exactly 1,024 bytes** (PCM16 little-endian mono), sent
-  at real-time pace.
-- Results come once per sentence, with no word-by-word partials. `{"type": "commit"}` closes the
-  open sentence. A session ends after 15 minutes.
+### Prisma v3.0: hearing the call
 
-**Text-to-speech:** `POST https://api.vachana.ai/api/v1/tts/inference`, model `timbre-v3.0`,
-returning WAV bytes. All 13 v3.0 voices speak all 10 supported languages.
+**Why Prisma.** Scam calls in India are code-mixed ("मैं CBI मुंबई branch से inspector बोल रहा
+हूँ"), noisy and narrow-band. Prisma is trained on telephony audio and has a `codemix` mode that
+keeps English words in Latin script inside Hindi or Tamil sentences. That matters: the words that
+give a scam away (*CBI, digital arrest, OTP, safe account, AnyDesk, KYC*) are English loanwords, and
+codemix keeps them intact for the risk engine.
+
+**How it is used.** The backend opens `wss://api.vachana.ai/stt/v3/stream` once per call, with the
+settings in the WebSocket upgrade headers:
+
+| Header | Value | Why |
+|---|---|---|
+| `model` | `prisma-v3.0` | The model with code-mix and key-term support |
+| `language_code` | `hi-IN`, `ta-IN` or `indic-auto` | One locale per stream; `?lang=` on the call screen chooses it |
+| `format` | `codemix` | English words stay in Latin script |
+| `keyterms` | CBI, digital arrest, OTP, AnyDesk, TeamViewer, TRAI, RBI, Aadhaar, PAN, UPI, RTGS, customs, narcotics, money laundering, warrant, KYC, FedEx | Biases recognition towards the words that matter most, on noisy audio |
+| `x-sample-rate` | `16000` | Matches the browser worklet |
+| `x-min-silence-ms` | `300` | Ends a sentence after 0.3 s of silence, so each sentence is scored sooner |
+| `x-idle-timeout-sec` | `300` | Keeps the stream open through pauses in the call |
+
+Audio goes in as exact 1,024-byte PCM16 frames (32 ms) at real-time pace; the backend re-frames
+whatever size the browser sends and never drops audio. Each `transcript` message carries the text,
+Prisma's own `latency`, and (in v3.0) a `detected_language_code`, which `indic-auto` calls use to
+choose the warning's language.
+
+**Measured.** Across the 16 evaluation runs, the median transcript latency reported by Prisma was
+**81 ms on clean audio and 75 ms on noisy phone-line audio** (514 sentences), and the scam calls were
+caught on phone-line audio exactly as on clean audio (4 of 4, at the same seconds). A live Tanglish
+call (`ta-IN`) came back as "நான் மும்பை CBI cyber crime branch-லிருந்து inspector ராஜேஷ் பேசுகிறேன்".
+
+### Timbre v3.0: speaking the warning
+
+**Why a voice.** A frightened person on a call is not reading a screen. Saavdhaan says the warning out
+loud, in their language, through the same speaker they are listening to.
+
+**How it is used.**
+
+- `POST https://api.vachana.ai/api/v1/tts/inference` with `model: timbre-v3.0`, voice `Avinash`
+  (configurable), 16 kHz WAV. All 13 v3.0 voices speak all 10 supported languages, so one voice covers
+  Hindi and Tamil.
+- The warning is synthesised **once per language at server start** and cached on disk, so it plays
+  the instant the risk turns dangerous, with no text-to-speech round trip during the call.
+- Numbers are written as words ("unnees sau tees", "ஒன்று ஒன்பது மூன்று பூஜ்ஜியம்") so the helpline
+  number is read naturally.
+- While it plays, the call screen mutes the microphone, so Saavdhaan never transcribes itself.
+
+### Timbre again: a test set without real calls
+
+The challenge rules forbid real recordings, and real scam calls cannot be collected anyway. So the
+evaluation calls are scripts voiced by Timbre. Each speaker gets its own v3.0 voice, and each voice
+appears in one scam and one normal call, so the voice cannot give the label away. Turns are levelled
+and joined with natural pauses, and a phone-line copy adds street noise, mains hum, 300-3400 Hz
+band-limiting and 8 kHz µ-law. 71 Timbre requests built all 16 files; every clip is cached, so reruns
+cost nothing.
+
+### API facts verified live (15 November 2026)
+
+- **The live stream accepts exactly one locale.** `hi-IN,en-IN` is refused with *"exactly one locale
+  is required"*; `hi-IN`, `ta-IN` and `indic-auto` connect.
+- Results come once per sentence, with no word-by-word partials. `{"type": "commit"}` closes the open
+  sentence. A session ends after 15 minutes.
+- Two streaming sessions can run at once on one key; text-to-speech allows one request at a time on
+  some accounts.
+- Auth is the `X-API-Key-ID` header on every request, including the WebSocket upgrade.
 
 **Quirks handled in this code**
 
@@ -474,13 +614,17 @@ backend/
   server.py            FastAPI app: /ws/call, /ws/family, /health, serves frontend/
   gnani_stt.py         Async client for Prisma streaming speech-to-text
   gnani_tts.py         Async client for Timbre text-to-speech
-  risk/                RiskEngine: keyword engine, LLM judge, tests
+  fo_client.py         Wajo Fo MCP client: asks Fo to text, email and call the family
+  fo_login.py          One-time Wajo sign-in (OAuth + PKCE); tokens in .fo_tokens.json
+  fo_follow.py         Prints Fo's progress on the latest alert
+  risk/                RiskEngine: keyword engine (Hindi + Tamil), LLM judge, tests
   tests_audio/         Backend tests, a local Gnani test server, live smoke tests
 frontend/
   index.html, app.js   The call screen
   pcm-worklet.js       Microphone to 16 kHz PCM16 frames of 1,024 bytes
   styles.css
   family.html          The family alert page (self-contained)
+docs/images/           Screenshots used in this README
 eval/
   scripts/             8 synthetic call scripts (JSON)
   make_audio.py        Voices the scripts with Timbre; builds clean and phone-line WAVs
